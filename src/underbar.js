@@ -168,6 +168,14 @@ var _ = {};
   //     return total + number;
   //   }, 0); // should be 6
   _.reduce = function(collection, iterator, accumulator) {
+    if(collection.length === 0){
+      return accumulator;
+    }
+    if (accumulator == undefined){
+      accumulator = collection[0];
+    }
+    accumulator = iterator(accumulator, collection[0]);
+    return _.reduce(collection.splice(1), iterator, accumulator);
   };
 
   // Determine if the array or object contains a given value (using `===`).
