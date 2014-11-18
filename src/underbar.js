@@ -168,10 +168,18 @@ var _ = {};
   //     return total + number;
   //   }, 0); // should be 6
   _.reduce = function(collection, iterator, accumulator) {
+    //if collection is an object
+    //convert it to an array:
+    if(collection.length === undefined){
+      collection = _.map(collection, function(item){
+        return item;
+      });
+    }
+    //begin reduce function using recursion:
     if(collection.length === 0){
       return accumulator;
     }
-    if (accumulator == undefined){
+    if (accumulator === undefined){
       accumulator = collection[0];
     }
     accumulator = iterator(accumulator, collection[0]);
