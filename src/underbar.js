@@ -249,7 +249,6 @@ var _ = {};
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
-    console.log('hello');
     for(var i = 1; i <= arguments.length; i++){
       for(var item in arguments[i]){
         obj[item] = arguments[i][item];
@@ -310,6 +309,14 @@ var _ = {};
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    var res = {};
+    return function(key){
+      if(res[key] != undefined){
+        return res[key];
+      }
+      res[key] = func.apply(this, arguments);
+      return res[key];
+    }
   };
 
   // Delays a function for the given number of milliseconds, and then calls
